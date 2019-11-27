@@ -1,4 +1,8 @@
-#!/bin/bash -xv
+#!/bin/bash 
+
+#
+# DELAY, MAX_LOOP are env vriables
+#
 
 function wait-for() {
   cmd="$1"
@@ -76,10 +80,17 @@ if wait-for is-solr-running "$event" ; then
     # wait on status
     event="Status create collection completed"
     if wait-for is-solr-collection-creation-status-completed "$event" ; then
+      clear-async-create-collection-request-id
       echo "UPLOAD mongo fileds";
       upload-mongo-fields "stuffCollection"
-   fi
-   clear-async-create-collection-request-id
+    else
+      clear-async-create-collection-request-id
+      exit 1
+    fi
+  else
+    exit 1
   fi  
+else
+  exit 1
 fi
 
