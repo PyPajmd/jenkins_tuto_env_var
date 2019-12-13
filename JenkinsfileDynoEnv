@@ -1,3 +1,4 @@
+def zip_file = 'nhs-ui-version.zip'
 pipeline {
     agent any 
     environment {
@@ -14,10 +15,12 @@ pipeline {
         LONG_SCRIPT = """${sh(
                 returnStdout: true,
                 script: """
-                cat << EOF
-                This multiline
-                output
-                EOF
+cat << EOF
+This multiline
+output: 
+  - my home: $HOME
+  - pipeline variable: $zip_file
+EOF
                 """
             )}""" 
 
