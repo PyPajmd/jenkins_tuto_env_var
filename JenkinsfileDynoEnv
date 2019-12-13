@@ -11,6 +11,16 @@ pipeline {
                 returnStatus: true,
                 script: 'exit 1'
             )}"""
+        LONG_SCRIPT = """${sh(
+                returnStdout: true,
+                script: """
+                cat << EOF
+                This multiline
+                output
+                EOF
+                """
+            )}""" 
+
     }
     stages {
         stage('Example') {
